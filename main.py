@@ -1,64 +1,18 @@
-# scpi controller
-import easy_scpi as scpi
+import pyvisa as visa
 
-class PowerSupply( scpi.Instrument ):
+class owon:
+    def _init__(self):
+        self.usb = None
     
-    def __init__( self ):
-        super().__init__( 
-            port = None, 
-            timeout = 5,
-            read_termination = '\n', 
-            write_termination = '\n' 
-        )
+    def appVolt(self, v):
+        self.channel
 
-        # other initialization code...
-
-        
-    #--- public methods ---
-
-    
-    @property        
-    def voltage( self ):
-        """
-        Returns the voltage setting
-        """
-        return self.source.volt.level()
-    
-    
-    @voltage.setter
-    def voltage( self, volts ):
-        """
-        Sets the voltage of the instrument
-        """
-        self.source.volt.level( volts )
-        
-    
-    @property
-    def current( self ):
-        """
-        Returns the current setting in Amps
-        """
-        return self.source.current.level()
-        
-        
-    @current.setter
-    def current( self, amps ):
-        """
-        Set the current of the instrument
-        """
-        self.source.current.level( amps )
-        
-    
-    def on( self ):
-        """
-        Turns the output on
-        """
-        self.output.state( 'on' )
-        
-        
-    def off( self):
-        """
-        Turns the output off
-        """
-        self.output.state( 'off' )
-
+if __name__ == "__main__":
+    #while(True):
+        rm = visa.ResourceManager()
+        res = rm.list_resources()
+        num = list(range(0, len(res)))
+        dic = list(zip(num, res))
+        dev = int(input("Enter your devices correspoding number:\n" + str(dic) + "\n"))
+        print(dic[dev])
+        # obj = rm.open_resource(dev)
